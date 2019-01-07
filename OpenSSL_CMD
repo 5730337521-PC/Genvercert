@@ -1,0 +1,73 @@
+*OPENSSL CMD*
+
+*Gen Stuff*
+> Gen private key
+>`openssl genrsa -out privateKeyRSA2048.pem 2048`
+> Gen public key
+>`openssl rsa -in privateKeyRSA2048.pem -outform PEM -pubout -out publicKeyRSA2048.pem`
+> Gen CSR
+>`openssl req -new -subj /C=TH/ST=Bangkok/L=Bangkok/O=KBTG/OU=BlockChain/CN=sss.com/emailAddress=abc@abc.com -key privateKeyRSA2048.pem -out csr.csr`
+> Gen Self sign crt
+>`openssl req -in csr.csr -key privateKeyRSA2048.pem -x509 -days 365 -out certificate.crt`
+> Bundle key and certificate in a PKCS#12 (P12)
+>`openssl pkcs12 -inkey privateKeyRSA2048.pem -in certificate.crt -export -out certificate.p12`
+
+
+*Check Valid*
+> Check a Certificate Signing Request (CSR)
+>`openssl req -text -noout -verify -in csr.csr`
+> Check a private key
+>`openssl rsa -in privateKeyRSA2048.pem -check`
+> Check a certificate
+>`openssl x509 -in certificate.crt -text -noout`
+> Check a PKCS#12 file (.pfx or .p12)
+>`openssl pkcs12 -info -in certificate.p12`
+
+*OPENSSL CMD*
+*Certificate Chain*
+> *root*
+> Gen root pk
+>`openssl genrsa -out root.key 2048`
+> Gen CSR
+>`openssl req -new -subj /C=TH/ST=Bangkok/L=Bangkok/O=root/OU=root/CN=root.com/emailAddress=root@root.com -key root.key -out root.csr`
+> Gen Self sign root crt
+>`openssl req -in csr.csr -key root.key -x509 -days 365 -out root.crt`
+
+> *cunex*
+> Gen cunex pk
+>`openssl genrsa -out cunex.key 2048`
+> Gen cunex public key
+>`openssl rsa -in cunex.key -pubout -out cunexpub.key`
+> Gen CSR
+>`openssl req -new -subj /C=TH/ST=Bangkok/L=Bangkok/O=cunex/OU=cunex/CN=cunex.com/emailAddress=cunex@cunex.com -key cunex.key -out cunex.csr`
+> Gen Cert sign by root
+>`openssl x509 -req -days 360 -in cunex.csr -CA root.crt -CAkey root.key -CAcreateserial -out cunex.crt`
+
+> *regcu*
+> Gen regcu pk
+>`openssl genrsa -out regcu.key 2048`
+> Gen regcu public key
+>`openssl rsa -in regcu.key -pubout -out regcupub.key`
+> Gen CSR
+>`openssl req -new -subj /C=TH/ST=Bangkok/L=Bangkok/O=regcu/OU=regcu/CN=regcu.com/emailAddress=regcu@regcu.com -key regcu.key -out regcu.csr`
+> Gen Cert sign by root
+>`openssl x509 -req -days 360 -in regcu.csr -CA root.crt -CAkey root.key -CAcreateserial -out regcu.crt`
+
+> *student*
+> Gen student pk
+>`openssl genrsa -out student.key 2048`
+> Gen student public key
+>`openssl rsa -in student.key -pubout -out studentpub.key`
+> Gen CSR
+>`openssl req -new -subj /C=TH/ST=Bangkok/L=Bangkok/O=student/OU=student/CN=student.com/emailAddress=student@student.com -key student.key -out student.csr`
+> Gen Cert sign by root
+>`openssl x509 -req -days 360 -in student.csr -CA cunex.crt -CAkey cunex.key -CAcreateserial -out student.crt`
+
+> Bundle intermediate to end crt 
+>`cat cunex.crt student.crt > inter-end.pem`
+
+> Verify Chain <rootcrt> <inter->end>
+>`openssl verify -CAfile root.crt inter-end.crt`
+
+> Bundle student key and certificate in a PKCS#12 (P12)
+>`openssl pkcs12 -inkey student.key -in root.crt -in cunex.crt -in student.crt -export -out certificate.p12`

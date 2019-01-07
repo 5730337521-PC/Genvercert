@@ -1,0 +1,26 @@
+{
+  "name": "certgenerator",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "child_process": "^1.0.2",
+    "cookie-parser": "~1.4.3",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "fs": "0.0.1-security",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "jsonld-signatures": "git+https://git@github.com/piggyman007/jsonld-signatures.git",
+    "mocha": "^5.2.0",
+    "morgan": "~1.9.0",
+    "net": "^1.0.2",
+    "os-tmpdir": "^2.0.0",
+    "path": "^0.12.7",
+    "which": "^1.3.1"
+  }
+}
