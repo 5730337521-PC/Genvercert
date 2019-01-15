@@ -33,10 +33,15 @@ router.post('/signcsr', function(req, res, next) {
 
 router.post('/verifychain', function(req, res, next) {
   certificateChain = req.body.certificateChain
-  // console.log("certificateChain:\n", certificateChain)
+  console.log("certificateChain:\n", certificateChain)
   openecc.verifyCertificateChain(certificateChain,rootcert,(option,result)=>{
     console.log("option:\n",option)
-    res.send(result);
+    // console.log(result)
+    if(result.includes("OK")){
+      res.status(200).json({result : "verified"});
+    }else{
+      res.status(200).json({result :"verification fail"});
+    }
   })
 })
 
