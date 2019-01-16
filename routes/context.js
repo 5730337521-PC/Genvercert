@@ -11,37 +11,37 @@ router.get('/', function(req, res, next) {
 
 router.get('/verifiablecredential', function(req, res, next) {     
     // pretty res
-    res.set({'Content-Type': 'application/json; charset=utf-8'}).send(200, JSON.stringify({"@context" : context.verifiableCredential}, undefined, ' '));
+    res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.verifiableCredential]}, undefined, ' '));
 });
 
 router.get('/presentation', function(req, res, next) {     
     // pretty res
-    res.set({'Content-Type': 'application/json; charset=utf-8'}).send(200, JSON.stringify({"@context" : context.presentation}, undefined, ' '));
+    res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({"@context" : [{"@version": 1.1},context.presentation]}, undefined, ' '));
 });
 
 router.get('/cucredentialsubject', function(req, res, next) {     
     // pretty res
-    res.set({'Content-Type': 'application/json; charset=utf-8'}).send(200, JSON.stringify({"@context" : context.cucredentialSubject}, undefined, ' '));
+    res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.cucredentialSubject]}, undefined, ' '));
 });
 
 router.get('/termsofuse', function(req, res, next) {     
     // pretty res
-    res.set({'Content-Type': 'application/json; charset=utf-8'}).send(200, JSON.stringify({"@context" : context.termsOfUse}, undefined, ' '));
+    res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.termsOfUse]}, undefined, ' '));
 });
 
 router.get('/prohibition', function(req, res, next) {     
     // pretty res
-    res.set({'Content-Type': 'application/json; charset=utf-8'}).send(200, JSON.stringify({"@context" : context.prohibition}, undefined, ' '));
+    res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.prohibition]}, undefined, ' '));
 });
 
 router.get('/verifiablecredentialall', function(req, res, next) {     
     // pretty res
-    res.set({'Content-Type': 'application/json; charset=utf-8'}).send(200, JSON.stringify({"@context" : context.verifiableCredentialAll}, undefined, ' '));
+    res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.verifiableCredentialAll]}, undefined, ' '));
 });
 
 router.get('/presentationall', function(req, res, next) {     
     // pretty res
-    res.set({'Content-Type': 'application/json; charset=utf-8'}).send(200, JSON.stringify({"@context" : context.presentationAll}, undefined, ' '));
+    res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.presentationAll]}, undefined, ' '));
 });
 
 module.exports = router;
