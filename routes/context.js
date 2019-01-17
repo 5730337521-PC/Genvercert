@@ -44,4 +44,9 @@ router.get('/presentationall', function(req, res, next) {
     res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.presentationAll]}, undefined, ' '));
 });
 
+router.get('/security', function(req, res, next) {     
+    // pretty res
+    res.redirect('https://web-payments.org/contexts/security-v2.jsonld')
+});
+
 module.exports = router;
