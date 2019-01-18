@@ -9,6 +9,8 @@ router.get('/', function(req, res, next) {
     res.status(200).json(context)
 });
 
+console.log(context);
+
 router.get('/verifiablecredential', function(req, res, next) {     
     // pretty res
     res.set({'Content-Type': 'application/ld+json; charset=utf-8'}).status(200).send(JSON.stringify({ "@context": [{"@version": 1.1},context.verifiableCredential]}, undefined, ' '));

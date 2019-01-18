@@ -43,12 +43,50 @@ const prohibition = {
     action : "prohibition:action",
 }
 
+const verifiableCredentialall = Object.assign(clone(verifiableCredential),clone(cucredentialSubject))
+const presentationAll= Object.assign(clone(presentation),clone(verifiableCredential),clone(cucredentialSubject),clone(termsOfUse),clone(prohibition))
+
+function clone(obj) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || "object" != typeof obj) return obj;
+
+    // Handle Date
+    if (obj instanceof Date) {
+        copy = new Date();
+        copy.setTime(obj.getTime());
+        return copy;
+    }
+
+    // Handle Array
+    if (obj instanceof Array) {
+        copy = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+            copy[i] = clone(obj[i]);
+        }
+        return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+        copy = {};
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+        }
+        return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
+}
+
+
 module.exports = {
     "verifiableCredential" : verifiableCredential,
     "presentation" : presentation,
     "cucredentialSubject" : cucredentialSubject,
     "termsOfUse" : termsOfUse,
     "prohibition" : prohibition,
-    "verifiableCredentialAll" : Object.assign(verifiableCredential,cucredentialSubject),
-    "presentationAll" : Object.assign(presentation,verifiableCredential,cucredentialSubject,termsOfUse,prohibition),
+    "verifiableCredentialAll" : verifiableCredentialall,
+    "presentationAll" : presentationAll
 }
