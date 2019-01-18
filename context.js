@@ -48,6 +48,7 @@ module.exports = {
     "presentation" : presentation,
     "cucredentialSubject" : cucredentialSubject,
     "termsOfUse" : termsOfUse,
+    "prohibition" : prohibition,
     "verifiableCredentialAll" : Object.assign(verifiableCredential,cucredentialSubject),
     "presentationAll" : Object.assign(presentation,verifiableCredential,cucredentialSubject,termsOfUse,prohibition),
 }
