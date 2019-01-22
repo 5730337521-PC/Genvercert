@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     res.status(200).json(context)
 });
 
-console.log(context);
+// console.log(context);
 
 router.get('/verifiablecredential', function(req, res, next) {     
     // pretty res

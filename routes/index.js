@@ -27,7 +27,7 @@ router.post('/signcsr', function(req, res, next) {
   }
   openecc.signCSRwithCert(options,(option,cert)=>{
     console.log("cert:\n",cert)
-    var certchain  = sevcert+"\n"+cert.certificate
+    var certchain  = [sevcert,cert.certificate]
     res.send(certchain);
   })
 })
