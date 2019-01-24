@@ -34,16 +34,21 @@ router.post('/signcsr', function(req, res, next) {
 
 router.post('/verifychain', function(req, res, next) {
   certificateChain = req.body.certificateChain
-  console.log("certificateChain:\n", certificateChain)
-  openecc.verifyCertificateChain(certificateChain,rootcert,(option,result)=>{
-    console.log("option:\n",option)
-    // console.log(result)
-    if(result.includes("OK")){
-      res.status(200).json({result : "verified"});
-    }else{
-      res.status(200).json({result :"verification fail"});
-    }
-  })
+  if(certificateChain != null){
+    console.log("certificateChain:\n", certificateChain)
+    openecc.verifyCertificateChain(certificateChain,rootcert,(option,result)=>{
+      console.log("option:\n",option)
+      // console.log(result)
+      if(result.includes("OK")){
+        res.status(200).json({result : "verified"});
+      }else{
+        res.status(200).json({result :"verification fail"});
+      }
+    })
+  } else{
+    res.status(200).json({result :"verification fail, certificateChain is empty"});
+  }
+
 })
 
 router.post('/cusign', function(req, res, next) {
